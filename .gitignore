@@ -1,0 +1,44 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+.build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Bytecode / caches
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Logs / debug
+*.log
+
+# Packaging / build artifacts
+dist/
+build/
+.eggs/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Images generated or temp
+*.tmp
+
+# Pygame specific (if any temporary dumps)
+*.sav
+
+# Local environment variables
+.env

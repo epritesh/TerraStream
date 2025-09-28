@@ -3,7 +3,7 @@
 "A flowing horizon of generated hills."  
 Terrastream is an infinite side-scrolling terrain prototype using procedural 1D gradient (Perlin-like) noise to create natural rolling hills on the fly. Built with Python and Pygame.
 
-## Features (Current)
+## Features (Current) *(v0.2.1)*
 - Procedural terrain generated chunk-by-chunk (infinite scrolling)
 - Multi-octave fractal gradient noise (deterministic via seed)
 - Seam smoothing between chunks (slope-based blending of boundaries)
@@ -19,15 +19,21 @@ Terrastream is an infinite side-scrolling terrain prototype using procedural 1D 
 - Biome-based terrain color bands with smooth modulation
 - Slope-based ridge lighting (per-segment normal & biased sun direction) + highlight & subtle shadow
 - Player entity (movement, jump, gravity, ground collision)
+- External player sprite run cycle (with fallback capsule) & day/night tinting
 - Anchored smoothing camera (configurable horizontal anchor fraction)
 - Configurable terrain prefetch & pruning window (ahead/behind) with per-frame generation budget
 - HUD overlay (FPS, distance traveled, seed)
+- Foreground silhouette grass layers (noise-driven, cached, smoothed) for depth
+- Atmospheric haze bands, lightning flashes, twilight fog warm tint, star twinkle
+- Fireflies (night-only ambient wandering glow with flicker & lightning flash boost)
+- Screenshot hotkey (F12) saves timestamped PNG to `screenshots/`
 
 ## Planned (Next Targets)
+- Landing squash/stretch animation & jump/fall state sprites
 - Collectibles / scoring prototype
-- Additional weather FX (rain streaks, lightning flash)
+- Performance auto-scaler (dynamic density / quality)
 - Optional threaded terrain generation (`ASYNC_TERRAIN_THREAD` future)
-- Performance micro-optimizations (surface pooling for clouds/stars, highlight batching)
+- Additional weather FX (rain, drifting pollen, distant lightning variations)
 - Ambient audio / subtle wind layer
 
 ## Stretch Ideas
@@ -50,6 +56,7 @@ python main.py --seed 1337   # optional seed override
 - Left / Right Arrows or A / D: Move horizontally
 - Space / W / Up Arrow: Jump (when on ground)
 - Esc: Quit
+- F12: Screenshot (if `SCREENSHOT_ENABLED`)
 
 ## Configuration Highlights (`game/config.py`)
 - Core terrain: `CHUNK_WIDTH`, `POINT_SPACING`, `NOISE_*`, `BASELINE`, `SEED`
@@ -103,6 +110,15 @@ pytest -q
 - Ridge smoothing adds CPU cost; reduce `TERRAIN_SMOOTH_SUBDIVS` or disable if needed
 - Parallax layers use sparse sampling (spacing configurable) to stay light
  - Prefetch keeps a large buffer of future chunks so reveal is instant; adjust `PREFETCH_CHUNKS_AHEAD` for memory vs. smoothness tradeoff.
+- Fireflies: glow surfaces cached per brightness bucket; adjust `FIREFLY_BASE_COUNT` & `FIREFLY_GLOW_RADIUS` for performance.
+- Screenshot overhead is negligible (single PNG encode) but avoid spamming F12 every frame.
+
+## Version
+Current package version: imported as:
+```python
+from game import __version__
+print(__version__)
+```
 
 ## License
 MIT (you may adapt freely).
